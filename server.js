@@ -128,19 +128,20 @@ router.route('/smartphones/:smartphone_id')
     });
   })
 
-/*
-  // delete the assignment with this id
-  // (accessed at DELETE http://localhost:8080/api/v1/assignments/:assignment_id)
+
+  // delete the smartphone with this id
+  // (accessed at DELETE http://localhost:8080/api/v1/smartphones/:smartphone_id)
   .delete(function (req, res) {
     res.status = 200;
     res.setHeader('Content-Type', 'application/json');
-    Assignment.remove( {'assignmentId': req.params.assignment_id}, function (err, assignment) {
+    Smartphone.remove( {'_id': req.params.smartphone_id}, function (err, smartphone) {
       if (err) { res.send(err); }
-      res.json({ message: 'Successfully deleted' });
+      else{
+        res.json({ message: 'Successfully deleted' });
+      }
     });
   });
 
-*/
 
 
 /*************************** MIDDLEWARE CORS ********************************/
@@ -171,7 +172,7 @@ app.use((req, res, next) => {
     next(err);
 });
 app.use((err, req, res, next) => {
-    res.status(err.status || 500);
+    res.status = err.status || 500;
     res.json({ error: { message: err.message } });
 });
 

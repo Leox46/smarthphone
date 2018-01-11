@@ -1,42 +1,40 @@
-const root = process.env.SERVER_URL || 'https://assignmentbasemodel.herokuapp.com/api/v1' // http://127.0.0.1:8080/api
+const root = process.env.SERVER_URL || 'http://127.0.0.1:8080/api' // 'https://smartphonebasemodel.herokuapp.com/api/v1'
 const fetch = require("node-fetch")
-const assignmentsRoot = root+'/assignments'
-const exampleAssignment =  {
-    "assignmentId": "30",
-    "studentId": "veniam sit proident",
-    "assignment": {"url":"some url"},
-    "assignmentType": "minim",
-    "assignmentValuation": 21
+const smartphonesRoot = root+'/smartphones'
+const exampleSmartphone =  {
+    "brand": "prova marca",
+    "model": "prova modello",
+    "price": 400.99
 }
 // importante per il TEST COVERAGE!
 // const server = require('./server');
 
 // helper methods - you can put these  in a separate file if you have many tests file and want to reuse them
 
-const postAssignments = function (newAssignment) {
-    return fetch(assignmentsRoot, {
+const postSmartphones = function (newSmartphone) {
+    return fetch(smartphonesRoot, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        body: JSON.stringify(newAssignment)
+        body: JSON.stringify(newSmartphone)
     })
 }
 
-const putAssignments = function (assignmentId, assignment) {
-    return fetch(assignmentsRoot+'/'+assignmentId, {
+const putSmartphones = function (_id, smartphone) {
+    return fetch(smartphonesRoot+'/'+_id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        body: JSON.stringify(assignment)
+        body: JSON.stringify(smartphone)
     })
 }
 
-const deleteAssignments = function (assignmentId) {
-    return fetch(assignmentsRoot+'/'+assignmentId, {
+const deleteSmartphones = function (_id) {
+    return fetch(smartphonesRoot+'/'+_id, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -46,8 +44,8 @@ const deleteAssignments = function (assignmentId) {
 }
 
 
-const getManyAssignments = function () {
-    return fetch(assignmentsRoot, {
+const getManySmartphones = function () {
+    return fetch(smartphonesRoot, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
@@ -55,8 +53,8 @@ const getManyAssignments = function () {
     })
 }
 
-const getOneAssignment = function (assignmentId) {
-    return fetch(assignmentsRoot+'/'+assignmentId, {
+const getOneSmartphone = function (_id) {
+    return fetch(smartphonesRoot+'/'+_id, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
@@ -67,40 +65,40 @@ const getOneAssignment = function (assignmentId) {
 
 
 test('basic post and get single element', () => {
-  return postAssignments(exampleAssignment)
+  return postSmartphones(exampleSmartphone)
     .then(postResponse => { return postResponse.json() })
     .then(postResponseJson => {
-      exampleAssignment.assignmentId = postResponseJson.assignmentId
-      return getOneAssignment(exampleAssignment.assignmentId)
+      exampleSmartphone._id = postResponseJson._id
+      return getOneSmartphone(exampleSmartphone._id)
     })
     .then(getResponse => {return getResponse.json()})
-    .then(jsonResponse => {expect(jsonResponse.assignmentResult).toEqual(exampleAssignment.assignmentResult)})
+    .then(jsonResponse => {expect(jsonResponse.smartphoneResult).toEqual(exampleSmartphone.smartphoneResult)})
     //.catch(e => {console.log(e)})
 });
 
 // importante! Mettere la PUT prima della DELETE!
-test('put item by assignmentId - basic response', () => {
-  return putAssignments(exampleAssignment.assignmentId, exampleAssignment)
+test('put item by _id - basic response', () => {
+  return putSmartphones(exampleSmartphone._id, exampleSmartphone)
     .then(response => { expect(response.status).toBe(200) })
     //.catch(e => {console.log(e)})
 });
 
-test('delete by assignmentId - basic response', () => {
-  return deleteAssignments(exampleAssignment.assignmentId)
+test('delete by _id - basic response', () => {
+  return deleteSmartphones(exampleSmartphone._id)
     .then(response => { expect(response.status).toBe(200) })
     //.catch(e => {console.log(e)})
 });
 
-test('get all assignments - basic response', () => {
-  return getManyAssignments()
+test('get all smartphones - basic response', () => {
+  return getManySmartphones()
     .then(response => { expect(response.status).toBe(200) })
     //.catch(e => {console.log(e)})
 });
 
 
 /*
-test('delete by assignmentID - item actually deleted', () => {
-  return getOneAssignment(exampleAssignment.assignmentId)
+test('delete by smartphoneID - item actually deleted', () => {
+  return getOneSmartphone(exampleSmartphone._id)
     .then(res => {expect(res.status).toBe(404)})
     //.catch(e => {console.log(e)})
 });
