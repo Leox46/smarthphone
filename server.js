@@ -100,27 +100,25 @@ router.route('/smartphones/:smartphone_id')
     });
   })
 
-/*
-  // update the assignment with this id
-  // (accessed at PUT http://localhost:8080/api/v1/assignments/:assignment_id)
+
+  // update the smartphone with this id
+  // (accessed at PUT http://localhost:8080/api/v1/smartphones/:smartphone_id)
   .put(function (req, res) {
     res.status = 200;
     res.setHeader('Content-Type', 'application/json');
-    // use our assignment model to find the assignment we want
+    // use our smartphone model to find the smartphone we want
     // ATTENZIONE!: usare findOne, e non find, altrimenti ritorna una collezione di oggetti, e bisogna estrarre il primo!
-    Assignment.findOne( {'assignmentId': req.params.assignment_id}, function (err, assignment) {
+    Smartphone.findOne( {'_id': req.params.smartphone_id}, function (err, smartphone) {
       if (err) { res.send(err); }
-      // update the assignments info
-      if(assignment != null){
-        if(req.body.assignmentId != null) assignment.assignmentId = req.body.assignmentId;
-      	if(req.body.studentId != null) assignment.studentId = req.body.studentId;
-      	if(req.body.assignment != null) assignment.assignment = req.body.assignment;
-      	if( req.body.assignmentType != null) assignment.assignmentType = req.body.assignmentType;
-      	if(req.body.assignmentValuation != null) assignment.assignmentValuation = req.body.assignmentValuation;
-        // save the assignment
-        assignment.save(function (err) {
+      // update the smartphones info
+      if(smartphone != null){
+        if(req.body.brand != null) smartphone.brand = req.body.brand;
+      	if(req.body.model != null) smartphone.model = req.body.model;
+      	if(req.body.price != null) smartphone.price = req.body.price;
+        // save the smartphone
+        smartphone.save(function (err) {
           if (err) { res.send(err); }
-          res.json(assignment);
+          res.json(smartphone);
         });
       }
       else{
@@ -130,6 +128,7 @@ router.route('/smartphones/:smartphone_id')
     });
   })
 
+/*
   // delete the assignment with this id
   // (accessed at DELETE http://localhost:8080/api/v1/assignments/:assignment_id)
   .delete(function (req, res) {
