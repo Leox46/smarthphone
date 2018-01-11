@@ -41,52 +41,51 @@ router.get('/', function (req, res) {
   res.json({ message: 'Welcome to our API!!!!!!' });
 });
 
-/*
+
 router.route('/smartphones')
 
-  // create a assignment
-  // accessed at POST http://localhost:8080/api/v1/assignments
+  // create a smartphone
+  // accessed at POST http://localhost:8080/api/v1/smartphones
   .post(function (req, res) {
     res.status = 200;
     res.setHeader('Content-Type', 'application/json');
-    // create a new instance of the Assignment model
-    var assignment = new Assignment();
-    // set the assignments name (comes from the request)
-    assignment.assignmentId = req.body.assignmentId;
-  	assignment.studentId = req.body.studentId;
-  	assignment.assignment = req.body.assignment;
-  	assignment.assignmentType = req.body.assignmentType;
-  	assignment.assignmentValuation = req.body.assignmentValuation;
+    // create a new instance of the smartphone model
+    var smartphone = new Smartphone();
+    // set the smartphones name (comes from the request)
+    smartphone.brand = req.body.brand;
+  	smartphone.model = req.body.model;
+  	smartphone.price = req.body.price;
 
-    // save the assignment and check for errors
-    assignment.save(function (err) {
+    // save the smartphone and check for errors
+    smartphone.save(function (err) {
       if (err) { res.send(err); }
-      res.json(assignment);
+      res.json(smartphone);
     });
   })
 
-  // get all the assignments
-  // accessed at GET http://localhost:8080/api/v1/assignments
+  // get all the smartphones
+  // accessed at GET http://localhost:8080/api/v1/smartphones
   // variante: questo server risponde anche se gli viene specificata come query
-  // del GET lo studentId, ritornando tutti gli assignment con lo studentId specificato.
-  // accessed at GET http://localhost:8080/api/v1/assignments/?studentId=177928
+  // del GET lo brand, ritornando tutti gli smartphone con lo brand specificato.
+  // accessed at GET http://localhost:8080/api/v1/smartphones/?brand=177928
   .get(function (req, res) {
     res.status = 200;
     res.setHeader('Content-Type', 'application/json');
-    if(req.query.studentId == null) { // se NON è specificato lo studentId, allora ritorno tutti gli assignments
-      Assignment.find(function (err, assignments) {
+    if(req.query.brand == null) { // se NON è specificato lo brand, allora ritorno tutti gli smartphones
+      Smartphone.find(function (err, smartphones) {
         if (err) { res.send(err); }
-        res.json(assignments);
+        res.json(smartphones);
       });
     }
     else {
-      Assignment.find( {'studentId': req.query.studentId}, function (err, assignments) {
+      Smartphone.find( {'brand': req.query.brand}, function (err, smartphones) {
         if (err) { res.send(err); }
-        res.json(assignments);
+        res.json(smartphones);
       });
     }
   });
 
+/*
 // route /assignments/assignment
 router.route('/assignments/:assignment_id')
 
