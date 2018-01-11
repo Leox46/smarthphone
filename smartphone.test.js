@@ -1,4 +1,4 @@
-const root = process.env.SERVER_URL || 'http://127.0.0.1:8080/api' // 'https://smartphonebasemodel.herokuapp.com/api/v1'
+const root = 'https://smartphoneapp.herokuapp.com/api/v1' // 'http://127.0.0.1:8080/api/v1' process.env.SERVER_URL
 const fetch = require("node-fetch")
 const smartphonesRoot = root+'/smartphones'
 const exampleSmartphone =  {
@@ -6,6 +6,7 @@ const exampleSmartphone =  {
     "model": "prova modello",
     "price": 400.99
 }
+
 // importante per il TEST COVERAGE!
 // const server = require('./server');
 
@@ -72,7 +73,7 @@ test('basic post and get single element', () => {
       return getOneSmartphone(exampleSmartphone._id)
     })
     .then(getResponse => {return getResponse.json()})
-    .then(jsonResponse => {expect(jsonResponse.smartphoneResult).toEqual(exampleSmartphone.smartphoneResult)})
+    .then(jsonResponse => {expect(jsonResponse).toMatchObject(exampleSmartphone)})
     //.catch(e => {console.log(e)})
 });
 

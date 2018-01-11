@@ -94,7 +94,7 @@ router.route('/smartphones/:smartphone_id')
   .get(function (req, res) {
     res.status = 200;
     res.setHeader('Content-Type', 'application/json');
-    Smartphone.find( {'_id': req.params.smartphone_id}, function (err, smartphone) {
+    Smartphone.findOne( {'_id': req.params.smartphone_id}, function (err, smartphone) {
       if (err) { res.send(err); }
       res.json(smartphone);
     });
