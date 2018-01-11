@@ -85,21 +85,22 @@ router.route('/smartphones')
     }
   });
 
-/*
-// route /assignments/assignment
-router.route('/assignments/:assignment_id')
 
-  // get the assignment with that id
-  // (accessed at GET http://localhost:8080/api/assignments/:assignment_id)
+// route /smartphones/smartphone
+router.route('/smartphones/:smartphone_id')
+
+  // get the smartphone with that id
+  // (accessed at GET http://localhost:8080/api/smartphones/:smartphone_id)
   .get(function (req, res) {
     res.status = 200;
     res.setHeader('Content-Type', 'application/json');
-    Assignment.find( {'assignmentId': req.params.assignment_id}, function (err, assignment) {
+    Smartphone.find( {'_id': req.params.smartphone_id}, function (err, smartphone) {
       if (err) { res.send(err); }
-      res.json(assignment);
+      res.json(smartphone);
     });
   })
 
+/*
   // update the assignment with this id
   // (accessed at PUT http://localhost:8080/api/v1/assignments/:assignment_id)
   .put(function (req, res) {
